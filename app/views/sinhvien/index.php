@@ -33,6 +33,7 @@
                 <th>Ho va ten</th>
                 <th>Gioi tinh</th>
                 <th>mssv</th>
+                <th colspan="2">Thao tác</th>
             </tr>
             <?php foreach ($sinhvien as $sv) { ?> 
                 <tr>
@@ -40,6 +41,12 @@
                     <td> <?php echo $sv['sinhvien']; ?> </td>
                     <td> <?php echo $sv['giotinh']; ?> </td>
                     <td> <?php echo $sv['mssv']; ?> </td>
+                    <td>
+                        <a href="/QLSINHVIEN/public/sinhvien/edit/<?php echo $sv['id']; ?>" class="btn btn-sm btn-warning">Sửa</a>
+                    </td>
+                    <td>
+                        <a href="/QLSINHVIEN/public/sinhvien/delete/<?php echo $sv['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Bạn chắc chắn muốn xóa?')">Xóa</a>
+                    </td>
                 </tr>
             <?php } ?>
         </table>
