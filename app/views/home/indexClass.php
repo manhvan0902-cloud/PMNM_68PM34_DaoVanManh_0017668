@@ -33,7 +33,7 @@
             <div style="display: flex; gap: 10px; align-items: center;">
                 <input type="text" name="search" placeholder="Tìm kiếm theo mã lớp hoặc tên lớp..." value="<?php echo htmlspecialchars($search); ?>" style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
                 <button type="submit" class="btn btn-success">Tìm kiếm</button>
-                <a href="/QLSINHVIEN/public/home/index" class="btn btn-secondary">Reset</a>
+                <a href="/QLSINHVIEN/public/home/index" class="btn btn-secondary">Đặt lại</a>
                 <select name="limit" onchange="this.form.submit()" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-left: auto;">
                     <option value="3" <?php echo ($limit == 3) ? 'selected' : ''; ?>>3 bản ghi/trang</option>
                     <option value="5" <?php echo ($limit == 5) ? 'selected' : ''; ?>>5 bản ghi/trang</option>

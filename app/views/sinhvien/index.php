@@ -49,7 +49,7 @@
                 </select>
 
                 <button type="submit" class="btn btn-success">Tìm kiếm</button>
-                <a href="/QLSINHVIEN/public/sinhvien/index" class="btn btn-secondary">Reset</a>
+                <a href="/QLSINHVIEN/public/sinhvien/index" class="btn btn-secondary">Đặt lại</a>
                 
                 <select name="limit" onchange="this.form.submit()" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-left: auto;">
                     <option value="3" <?php echo ($limit == 3) ? 'selected' : ''; ?>>3 bản ghi/trang</option>
@@ -67,6 +67,16 @@
                         <th>STT</th>
                         <th>
                             <?php 
+                            $order_mssv = (isset($sort_by) && $sort_by === 'mssv' && isset($sort_order) && $sort_order === 'ASC') ? 'DESC' : 'ASC';
+                            $url_mssv = "?search=".urlencode($search)."&filter_lop=".urlencode($filter_lop)."&limit=".$limit."&sort_by=mssv&sort_order=".$order_mssv;
+                            ?>
+                            <a href="/QLSINHVIEN/public/sinhvien/index/1<?php echo $url_mssv; ?>" style="color: white; text-decoration: none;">
+                                MSSV
+                                <?php if (isset($sort_by) && $sort_by === 'mssv') echo ($sort_order === 'ASC') ? '▲' : '▼'; ?>
+                            </a>
+                        </th>
+                        <th>
+                            <?php 
                             $order_hoten = (isset($sort_by) && $sort_by === 'hoten' && isset($sort_order) && $sort_order === 'ASC') ? 'DESC' : 'ASC';
                             $url_hoten = "?search=".urlencode($search)."&filter_lop=".urlencode($filter_lop)."&limit=".$limit."&sort_by=hoten&sort_order=".$order_hoten;
                             ?>
@@ -76,16 +86,6 @@
                             </a>
                         </th>
                         <th>Giới tính</th>
-                        <th>
-                            <?php 
-                            $order_mssv = (isset($sort_by) && $sort_by === 'mssv' && isset($sort_order) && $sort_order === 'ASC') ? 'DESC' : 'ASC';
-                            $url_mssv = "?search=".urlencode($search)."&filter_lop=".urlencode($filter_lop)."&limit=".$limit."&sort_by=mssv&sort_order=".$order_mssv;
-                            ?>
-                            <a href="/QLSINHVIEN/public/sinhvien/index/1<?php echo $url_mssv; ?>" style="color: white; text-decoration: none;">
-                                MSSV
-                                <?php if (isset($sort_by) && $sort_by === 'mssv') echo ($sort_order === 'ASC') ? '▲' : '▼'; ?>
-                            </a>
-                        </th>
                         <th>Lớp</th>
                         <th colspan="2">Thao tác</th>
                     </tr>
@@ -96,9 +96,9 @@
                     foreach ($sinhvien as $sv) { ?> 
                         <tr>
                             <td> <?php echo $stt++; ?> </td>
+                            <td> <?php echo $sv['mssv']; ?> </td>
                             <td> <?php echo $sv['sinhvien']; ?> </td>
                             <td> <?php echo $sv['gioitinh']; ?> </td>
-                            <td> <?php echo $sv['mssv']; ?> </td>
                             <td> <?php echo $sv['tenlop'] . ' - ' . $sv['malop']; ?> </td>
                             <td style="width: 80px;">
                                 <a href="/QLSINHVIEN/public/sinhvien/edit/<?php echo $sv['id']; ?>" class="btn btn-sm btn-warning w-100">Sửa</a>
