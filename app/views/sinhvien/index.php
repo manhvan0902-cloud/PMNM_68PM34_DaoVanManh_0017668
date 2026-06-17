@@ -33,6 +33,12 @@
             <div style="display: flex; gap: 10px; align-items: center;">
                 <input type="text" name="search" placeholder="Tìm kiếm theo họ tên, MSSV, mã lớp..." value="<?php echo htmlspecialchars($search); ?>" style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
                 
+                <?php if (isset($sort_by)): ?>
+                    <input type="hidden" name="sort_by" value="<?php echo htmlspecialchars($sort_by); ?>">
+                <?php endif; ?>
+                <?php if (isset($sort_order)): ?>
+                    <input type="hidden" name="sort_order" value="<?php echo htmlspecialchars($sort_order); ?>">
+                <?php endif; ?>
                 <select name="filter_lop" onchange="this.form.submit()" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
                     <option value="">-- Tất cả lớp --</option>
                     <?php foreach ($lophocs as $lop): ?>
@@ -59,9 +65,27 @@
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Họ và tên</th>
+                        <th>
+                            <?php 
+                            $order_hoten = (isset($sort_by) && $sort_by === 'hoten' && isset($sort_order) && $sort_order === 'ASC') ? 'DESC' : 'ASC';
+                            $url_hoten = "?search=".urlencode($search)."&filter_lop=".urlencode($filter_lop)."&limit=".$limit."&sort_by=hoten&sort_order=".$order_hoten;
+                            ?>
+                            <a href="/QLSINHVIEN/public/sinhvien/index/1<?php echo $url_hoten; ?>" style="color: white; text-decoration: none;">
+                                Họ và tên
+                                <?php if (isset($sort_by) && $sort_by === 'hoten') echo ($sort_order === 'ASC') ? '▲' : '▼'; ?>
+                            </a>
+                        </th>
                         <th>Giới tính</th>
-                        <th>MSSV</th>
+                        <th>
+                            <?php 
+                            $order_mssv = (isset($sort_by) && $sort_by === 'mssv' && isset($sort_order) && $sort_order === 'ASC') ? 'DESC' : 'ASC';
+                            $url_mssv = "?search=".urlencode($search)."&filter_lop=".urlencode($filter_lop)."&limit=".$limit."&sort_by=mssv&sort_order=".$order_mssv;
+                            ?>
+                            <a href="/QLSINHVIEN/public/sinhvien/index/1<?php echo $url_mssv; ?>" style="color: white; text-decoration: none;">
+                                MSSV
+                                <?php if (isset($sort_by) && $sort_by === 'mssv') echo ($sort_order === 'ASC') ? '▲' : '▼'; ?>
+                            </a>
+                        </th>
                         <th>Lớp</th>
                         <th colspan="2">Thao tác</th>
                     </tr>
@@ -106,6 +130,9 @@
                 }
                 if (isset($sort_order) && $sort_order !== 'ASC') {
                     $query_string .= ($query_string === '' ? '?' : '&') . 'sort_order=' . urlencode($sort_order);
+                }
+                if (isset($sort_by) && $sort_by !== 'mssv') {
+                    $query_string .= ($query_string === '' ? '?' : '&') . 'sort_by=' . urlencode($sort_by);
                 }
                 if (isset($limit) && $limit != 3) {
                     $query_string .= ($query_string === '' ? '?' : '&') . 'limit=' . $limit;

@@ -32,7 +32,7 @@
             }
         }
 
-        public function paging($limit, $offset, $search = '', $filter_lop = '', $sort_order = 'ASC') {
+        public function paging($limit, $offset, $search = '', $filter_lop = '', $sort_order = 'ASC', $sort_by = 'mssv') {
             // Xây dựng WHERE clause
             $where_conditions = array();
             
@@ -70,7 +70,8 @@
 
             // Lấy dữ liệu
             $valid_sort_order = strtoupper($sort_order) === 'DESC' ? 'DESC' : 'ASC';
-            $sql = "SELECT sv.*, lh.malop, lh.tenlop FROM tbl_sinhvien sv JOIN tbl_lophoc lh ON sv.lop_id = lh.id" . $where_clause . " ORDER BY sv.mssv " . $valid_sort_order . " LIMIT " . (int)$limit . " OFFSET " . (int)$offset;
+            $valid_sort_by = $sort_by === 'hoten' ? 'sv.sinhvien' : 'sv.mssv';
+            $sql = "SELECT sv.*, lh.malop, lh.tenlop FROM tbl_sinhvien sv JOIN tbl_lophoc lh ON sv.lop_id = lh.id" . $where_clause . " ORDER BY " . $valid_sort_by . " " . $valid_sort_order . " LIMIT " . (int)$limit . " OFFSET " . (int)$offset;
             $stmt = $this->conn->prepare($sql);
             $stmt->execute($params);
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -11,11 +11,12 @@ class sinhvien extends Controller {
         $search = isset($_GET['search']) ? trim($_GET['search']) : '';
         $filter_lop = isset($_GET['filter_lop']) ? (string)trim($_GET['filter_lop']) : '';
         $sort_order = isset($_GET['sort_order']) ? (string)trim($_GET['sort_order']) : 'ASC';
+        $sort_by = isset($_GET['sort_by']) ? (string)trim($_GET['sort_by']) : 'mssv';
 
         $sinhvienModel = $this->model('sinhvienModel');
         $lophocs = $sinhvienModel->getAllLop();
         
-        $result = $sinhvienModel->paging($limit, $offset, $search, $filter_lop, $sort_order);
+        $result = $sinhvienModel->paging($limit, $offset, $search, $filter_lop, $sort_order, $sort_by);
         $sinhviens = $result['sinhviens'];
         $totalpage = $result['totalpage'];
         $totalrecord = $result['totalrecord'];
@@ -34,6 +35,7 @@ class sinhvien extends Controller {
             "search" => $search,
             "filter_lop" => $filter_lop,
             "sort_order" => $sort_order,
+            "sort_by" => $sort_by,
             "limit" => $limit,
             "totalrecord" => $totalrecord,
             "start_record" => $start_record,
